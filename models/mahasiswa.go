@@ -20,6 +20,15 @@ type MahasiswaRequest struct {
 	Hobi HobiRequest `json:"hobi"`
 }
 
+type MahasiswaUpdateReq struct {
+	Id_mahasiswa int `json:"id_mahasiswa"`
+	Nama string `json:"nama"`
+	Usia int `json:"usia"`
+	Gender int `json:"gender"`
+	Tanggal_registrasi time.Time `json:"tanggal_registrasi"`
+	Nama_jurusan string `json:"nama_jurusan"`
+}
+
 type MahasiswaResponse struct {
 	Data []Mahasiswa `json:"data"`
 	Message string `json:"message"`
