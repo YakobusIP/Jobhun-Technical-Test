@@ -23,13 +23,13 @@ func getDBCredentials() {
 
 func InitDB() {
 	getDBCredentials()
-	
+
 	connString := fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s?parseTime=true", DB_USER, DB_PASS, DB_NAME)
 	db, err := sql.Open("mysql", connString)
 	if err != nil {
 		panic(err.Error())
 	} else {
-		fmt.Println("Connected successfully");
+		fmt.Println("Database successfully connected");
 	}
 
 	DATABASE = db
