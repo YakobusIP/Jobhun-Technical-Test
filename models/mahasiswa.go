@@ -27,6 +27,7 @@ type MahasiswaUpdateReq struct {
 	Gender int `json:"gender"`
 	Tanggal_registrasi time.Time `json:"tanggal_registrasi"`
 	Nama_jurusan string `json:"nama_jurusan"`
+	Nama_hobi string `json:"nama_hobi"`
 }
 
 type MahasiswaResponse struct {
