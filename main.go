@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/joho/godotenv"
 	"jobhun-backend.com/database"
@@ -11,9 +11,9 @@ import (
 func main() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		fmt.Println("Failed to load .env file")
+		log.Fatal("Failed to load .env file")
 	}
-	
+
 	database.InitDB();
 
 	router.Router();
