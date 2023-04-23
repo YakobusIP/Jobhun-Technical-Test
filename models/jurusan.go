@@ -8,8 +8,3 @@ type Jurusan struct {
 type JurusanRequest struct {
 	Nama string `json:"nama"`
 }
-
-type JurusanResponse struct {
-	Data    []Jurusan `json:"data"`
-	Message string    `json:"message"`
-}

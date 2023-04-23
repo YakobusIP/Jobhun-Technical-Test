@@ -8,8 +8,3 @@ type Hobi struct {
 type HobiRequest struct {
 	Nama string `json:"nama"`
 }
-
-type HobiResponse struct {
-	Data    []Hobi `json:"data"`
-	Message string `json:"message"`
-}
