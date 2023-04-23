@@ -1,4 +1,4 @@
-# Jobhun-Backend-Technical-Test
+# Jobhun-API-Endpoint
 
 ## Overview
 
@@ -13,15 +13,19 @@ Merupakan sebuah RESTful Web Service menggunakan bahasa Golang yang terdiri dari
 Seluruh endpoint ini menggunakan port 8080.
 
 ## Cara menjalankan
+
 1. Clone repository ini ke dalam komputer Anda.
 2. Buatlah file .env baru dengan isi sesuai .env.example, sesuaikan dengan database yang Anda miliki.
-3. Jalankan perintah berikut
+3. Jalankan perintah berikut di dalam terminal
+
 ```
 go run main.go
 ```
+
 4. Program sudah berhasil dijalankan.
 
 ## Contoh struktur JSON
+
 - Untuk endpoint insert mahasiswa, struktur JSON adalah sebagai berikut
 
 ```
@@ -54,3 +58,18 @@ go run main.go
     }
 }
 ```
+
+## Author
+
+<table>
+    <tr>
+        <th>Nama</th>
+        <th>Email</th>
+        <th>No. HP</th>
+    </tr>
+    <tr>
+        <td>Yakobus Iryanto Prasethio</td>
+        <td>yakobusiryantoprasethio@gmail.com</td>
+        <td>08987481816</td>
+    </tr>
+</table>
