@@ -13,7 +13,7 @@ import (
 )
 
 func GetAllMahasiswa(w http.ResponseWriter, r *http.Request) {
-	query := "SELECT m.id_mahasiswa, m.nama, m.usia, m.gender, m.tanggal_registrasi, h.id_hobi, h.nama, j.id_jurusan, j.nama FROM mahasiswa m LEFT JOIN mahasiswa_hobi mh ON m.id_mahasiswa = mh.id_mahasiswa LEFT JOIN hobi h ON mh.id_hobi = h.id_hobi LEFT JOIN mahasiswa_jurusan mj ON m.id_mahasiswa = mj.id_mahasiswa LEFT JOIN jurusan j ON mj.id_jurusan = j.id_jurusan"
+	query := "SELECT m.id_mahasiswa, m.nama, m.usia, m.gender, m.tanggal_registrasi, j.id_jurusan, j.nama, h.id_hobi, h.nama FROM mahasiswa m LEFT JOIN mahasiswa_hobi mh ON m.id_mahasiswa = mh.id_mahasiswa LEFT JOIN hobi h ON mh.id_hobi = h.id_hobi LEFT JOIN mahasiswa_jurusan mj ON m.id_mahasiswa = mj.id_mahasiswa LEFT JOIN jurusan j ON mj.id_jurusan = j.id_jurusan"
 	rows, err := database.DATABASE.Query(query)
 
 	if err != nil {
@@ -47,7 +47,7 @@ func GetMahasiswaOnID(w http.ResponseWriter, r *http.Request) {
 	var list_mahasiswa []models.Mahasiswa
 	var response models.MahasiswaResponse
 
-	query := "SELECT m.id_mahasiswa, m.nama, m.usia, m.gender, m.tanggal_registrasi, h.id_hobi, h.nama, j.id_jurusan, j.nama FROM mahasiswa m LEFT JOIN mahasiswa_hobi mh ON m.id_mahasiswa = mh.id_mahasiswa LEFT JOIN hobi h ON mh.id_hobi = h.id_hobi LEFT JOIN mahasiswa_jurusan mj ON m.id_mahasiswa = mj.id_mahasiswa LEFT JOIN jurusan j ON mj.id_jurusan = j.id_jurusan WHERE m.id_mahasiswa=?"
+	query := "SELECT m.id_mahasiswa, m.nama, m.usia, m.gender, m.tanggal_registrasi, j.id_jurusan, j.nama, h.id_hobi, h.nama FROM mahasiswa m LEFT JOIN mahasiswa_hobi mh ON m.id_mahasiswa = mh.id_mahasiswa LEFT JOIN hobi h ON mh.id_hobi = h.id_hobi LEFT JOIN mahasiswa_jurusan mj ON m.id_mahasiswa = mj.id_mahasiswa LEFT JOIN jurusan j ON mj.id_jurusan = j.id_jurusan WHERE m.id_mahasiswa=?"
 	err := database.DATABASE.QueryRow(query, params["id"]).Scan(&mahasiswa.Id_mahasiswa, &mahasiswa.Nama, &mahasiswa.Usia, &mahasiswa.Gender, &mahasiswa.Tanggal_registrasi, &mahasiswa.Jurusan.Id_jurusan, &mahasiswa.Jurusan.Nama, &mahasiswa.Hobi.Id_hobi, &mahasiswa.Hobi.Nama)
 
 	if err != nil {
@@ -175,6 +175,19 @@ func UpdateMahasiswa(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var id_mahasiswa int64
+	queryCheck := "SELECT id_mahasiswa FROM mahasiswa WHERE id_mahasiswa=?"
+	err = database.DATABASE.QueryRow(queryCheck, request.Id_mahasiswa).Scan(&id_mahasiswa)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			http.Error(w, "No data found on id", http.StatusBadRequest)
+		} else {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 		return
 	}
 
