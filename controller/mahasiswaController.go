@@ -170,7 +170,7 @@ func InsertMahasiswa(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateMahasiswa(w http.ResponseWriter, r *http.Request) {
-	var request models.MahasiswaUpdateReq
+	var request models.MahasiswaRequest
 
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
@@ -184,12 +184,12 @@ func UpdateMahasiswa(w http.ResponseWriter, r *http.Request) {
 	// Check if jurusan already exists in the database, if not then create a new jurusan and get the id.
 	// If jurusan exists, then fetch the id and update mahasiswa_jurusan
 	query1 := "SELECT id_jurusan FROM jurusan WHERE nama=?"
-	err = database.DATABASE.QueryRow(query1, request.Nama_jurusan).Scan(&id_jurusan)
+	err = database.DATABASE.QueryRow(query1, request.Jurusan.Nama).Scan(&id_jurusan)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
 			query := "INSERT INTO jurusan(nama) VALUES(?)"
-			res, err := database.DATABASE.ExecContext(context.Background(), query, request.Nama_jurusan)
+			res, err := database.DATABASE.ExecContext(context.Background(), query, request.Jurusan.Nama)
 
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)	
@@ -218,12 +218,12 @@ func UpdateMahasiswa(w http.ResponseWriter, r *http.Request) {
 	// Check if hobi already exists in the database, if not then create a new hobi and get the id.
 	// If hobi exists, then fetch the id and update mahasiswa_hobi
 	query2 := "SELECT id_hobi FROM hobi WHERE nama=?"
-	err = database.DATABASE.QueryRow(query2, request.Nama_hobi).Scan(&id_hobi)
+	err = database.DATABASE.QueryRow(query2, request.Hobi.Nama).Scan(&id_hobi)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
 			query := "INSERT INTO hobi(nama) VALUES(?)"
-			res, err := database.DATABASE.ExecContext(context.Background(), query, request.Nama_hobi)
+			res, err := database.DATABASE.ExecContext(context.Background(), query, request.Hobi.Nama)
 
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)	

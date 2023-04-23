@@ -13,21 +13,12 @@ type Mahasiswa struct {
 }
 
 type MahasiswaRequest struct {
+	Id_mahasiswa int `json:"id_mahasiswa"`
 	Nama string `json:"nama"`
 	Usia int `json:"usia"`
 	Gender int `json:"gender"`
 	Jurusan JurusanRequest `json:"jurusan"`
 	Hobi HobiRequest `json:"hobi"`
-}
-
-type MahasiswaUpdateReq struct {
-	Id_mahasiswa int `json:"id_mahasiswa"`
-	Nama string `json:"nama"`
-	Usia int `json:"usia"`
-	Gender int `json:"gender"`
-	Tanggal_registrasi time.Time `json:"tanggal_registrasi"`
-	Nama_jurusan string `json:"nama_jurusan"`
-	Nama_hobi string `json:"nama_hobi"`
 }
 
 type MahasiswaResponse struct {
